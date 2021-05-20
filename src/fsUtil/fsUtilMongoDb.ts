@@ -101,7 +101,7 @@ class FSUtilMongoDb extends FSUtil {
         return query;
     }
 
-    public static parseSorting(alias: string, fields: any, sortParam: any): any {
+    public static parseSorting(alias: string, fields: any, sortParam: string): any {
         const sort: any = {};
 
         if (sortParam) {
