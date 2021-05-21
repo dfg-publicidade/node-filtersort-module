@@ -16,62 +16,83 @@ class FSUtilTypeOrm extends FSUtil {
         const params: Params = new Params(from, service);
 
         for (const field of Object.keys(fields)) {
-            let param: Param;
-
             if (typeof fields[field] === 'object') {
                 this.parseFilter(app, `${alias}.${field}`, from, fields[field], service, qb);
             }
             else {
                 switch (fields[field]) {
                     case 'id': {
-                        param = params.getString(`${alias}.${field}`);
+                        const param: Param = params.getString(`${alias}.${field}`);
 
-                        TypeOrmQueries.inOrEq(param, qb, {
-                            parse: (value: any): any => Security.decodeId(app.config.security, value),
-                            filter: (value: any): any => Security.isId(app.config.security, value)
-                        });
+                        if (param) {
+                            TypeOrmQueries.inOrEq(param, qb, {
+                                parse: (value: any): any => Security.decodeId(app.config.security, value),
+                                filter: (value: any): any => Security.isId(app.config.security, value)
+                            });
+                        }
 
                         break;
                     }
                     case 'permalink': {
-                        param = params.getString(`${alias}.${field}`);
-                        TypeOrmQueries.inOrEq(param, qb);
+                        const param: Param = params.getString(`${alias}.${field}`);
+
+                        if (param) {
+                            TypeOrmQueries.inOrEq(param, qb);
+                        }
 
                         break;
                     }
                     case 'string': {
-                        param = params.getString(`${alias}.${field}`);
-                        TypeOrmQueries.like(param, qb);
+                        const param: Param = params.getString(`${alias}.${field}`);
+
+                        if (param) {
+                            TypeOrmQueries.like(param, qb);
+                        }
 
                         break;
                     }
                     case 'integer': {
-                        param = params.getInt(`${alias}.${field}`);
-                        TypeOrmQueries.betweenOrEq(param, qb);
+                        const param: Param = params.getInt(`${alias}.${field}`);
+
+                        if (param) {
+                            TypeOrmQueries.betweenOrEq(param, qb);
+                        }
 
                         break;
                     }
                     case 'float': {
-                        param = params.getFloat(`${alias}.${field}`);
-                        TypeOrmQueries.betweenOrEq(param, qb);
+                        const param: Param = params.getFloat(`${alias}.${field}`);
+
+                        if (param) {
+                            TypeOrmQueries.betweenOrEq(param, qb);
+                        }
 
                         break;
                     }
                     case 'date': {
-                        param = params.getDate(`${alias}.${field}`);
-                        TypeOrmQueries.betweenOrEq(param, qb);
+                        const param: Param = params.getDate(`${alias}.${field}`);
+
+                        if (param) {
+                            TypeOrmQueries.betweenOrEq(param, qb);
+                        }
 
                         break;
                     }
                     case 'datetime': {
-                        param = params.getDateTime(`${alias}.${field}`);
-                        TypeOrmQueries.betweenOrEq(param, qb);
+                        const param: Param = params.getDateTime(`${alias}.${field}`);
+
+                        if (param) {
+                            TypeOrmQueries.betweenOrEq(param, qb);
+                        }
 
                         break;
                     }
                     case 'boolean': {
-                        param = params.getBoolean(`${alias}.${field}`);
-                        TypeOrmQueries.trueOrNull(param, qb);
+                        const param: Param = params.getBoolean(`${alias}.${field}`);
+
+                        if (param) {
+                            TypeOrmQueries.trueOrNull(param, qb);
+                        }
 
                         break;
                     }

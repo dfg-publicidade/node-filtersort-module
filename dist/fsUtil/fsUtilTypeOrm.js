@@ -15,53 +15,68 @@ class FSUtilTypeOrm extends fsUtil_1.default {
         }
         const params = new node_params_module_1.default(from, service);
         for (const field of Object.keys(fields)) {
-            let param;
             if (typeof fields[field] === 'object') {
                 this.parseFilter(app, `${alias}.${field}`, from, fields[field], service, qb);
             }
             else {
                 switch (fields[field]) {
                     case 'id': {
-                        param = params.getString(`${alias}.${field}`);
-                        typeOrmQueries_1.default.inOrEq(param, qb, {
-                            parse: (value) => node_security_module_1.default.decodeId(app.config.security, value),
-                            filter: (value) => node_security_module_1.default.isId(app.config.security, value)
-                        });
+                        const param = params.getString(`${alias}.${field}`);
+                        if (param) {
+                            typeOrmQueries_1.default.inOrEq(param, qb, {
+                                parse: (value) => node_security_module_1.default.decodeId(app.config.security, value),
+                                filter: (value) => node_security_module_1.default.isId(app.config.security, value)
+                            });
+                        }
                         break;
                     }
                     case 'permalink': {
-                        param = params.getString(`${alias}.${field}`);
-                        typeOrmQueries_1.default.inOrEq(param, qb);
+                        const param = params.getString(`${alias}.${field}`);
+                        if (param) {
+                            typeOrmQueries_1.default.inOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'string': {
-                        param = params.getString(`${alias}.${field}`);
-                        typeOrmQueries_1.default.like(param, qb);
+                        const param = params.getString(`${alias}.${field}`);
+                        if (param) {
+                            typeOrmQueries_1.default.like(param, qb);
+                        }
                         break;
                     }
                     case 'integer': {
-                        param = params.getInt(`${alias}.${field}`);
-                        typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        const param = params.getInt(`${alias}.${field}`);
+                        if (param) {
+                            typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'float': {
-                        param = params.getFloat(`${alias}.${field}`);
-                        typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        const param = params.getFloat(`${alias}.${field}`);
+                        if (param) {
+                            typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'date': {
-                        param = params.getDate(`${alias}.${field}`);
-                        typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        const param = params.getDate(`${alias}.${field}`);
+                        if (param) {
+                            typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'datetime': {
-                        param = params.getDateTime(`${alias}.${field}`);
-                        typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        const param = params.getDateTime(`${alias}.${field}`);
+                        if (param) {
+                            typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'boolean': {
-                        param = params.getBoolean(`${alias}.${field}`);
-                        typeOrmQueries_1.default.trueOrNull(param, qb);
+                        const param = params.getBoolean(`${alias}.${field}`);
+                        if (param) {
+                            typeOrmQueries_1.default.trueOrNull(param, qb);
+                        }
                         break;
                     }
                 }

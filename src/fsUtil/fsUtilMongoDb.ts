@@ -18,8 +18,6 @@ class FSUtilMongoDb extends FSUtil {
         let query: any = {};
 
         for (const field of Object.keys(fields)) {
-            let param: Param;
-
             const fieldObj: FSField = this.getField(fields, field);
 
             if (typeof fieldObj.type === 'object') {
@@ -32,65 +30,92 @@ class FSUtilMongoDb extends FSUtil {
             else {
                 switch (fieldObj.type) {
                     case 'objectid': {
-                        param = params.getString(`${alias}.${field}`);
+                        let param: Param = params.getString(`${alias}.${field}`);
                         param = param.value ? param : params.getString(`${alias}.${field.replace(/_/ig, '')}`);
-                        query = MongoQueries.inOrEq(param, query, fieldObj, {
-                            filter: ObjectId.isValid,
-                            parse: (value: any): any => new ObjectId(value)
-                        });
+
+                        if (param) {
+                            query = MongoQueries.inOrEq(param, query, fieldObj, {
+                                filter: ObjectId.isValid,
+                                parse: (value: any): any => new ObjectId(value)
+                            });
+                        }
 
                         break;
                     }
                     case 'id': {
-                        param = params.getString(`${alias}.${field}`);
-                        query = MongoQueries.inOrEq(param, query, fieldObj, {
-                            filter: (value: any): boolean => Security.isId(app.config.security, value),
-                            parse: (value: any): any => Security.decodeId(app.config.security, value)
-                        });
+                        const param: Param = params.getString(`${alias}.${field}`);
+
+                        if (param) {
+                            query = MongoQueries.inOrEq(param, query, fieldObj, {
+                                filter: (value: any): boolean => Security.isId(app.config.security, value),
+                                parse: (value: any): any => Security.decodeId(app.config.security, value)
+                            });
+                        }
 
                         break;
                     }
                     case 'permalink': {
-                        param = params.getString(`${alias}.${field}`);
-                        query = MongoQueries.inOrEq(param, query, fieldObj);
+                        const param: Param = params.getString(`${alias}.${field}`);
+
+                        if (param) {
+                            query = MongoQueries.inOrEq(param, query, fieldObj);
+                        }
 
                         break;
                     }
                     case 'string': {
-                        param = params.getString(`${alias}.${field}`);
-                        query = MongoQueries.eqOrNull(param, query, fieldObj, {
-                            parse: (value: any): any => ({ $regex: Strings.createFindRegex(value) })
-                        });
+                        const param: Param = params.getString(`${alias}.${field}`);
+
+                        if (param) {
+                            query = MongoQueries.eqOrNull(param, query, fieldObj, {
+                                parse: (value: any): any => ({ $regex: Strings.createFindRegex(value) })
+                            });
+                        }
 
                         break;
                     }
                     case 'integer': {
-                        param = params.getInt(`${alias}.${field}`);
-                        query = MongoQueries.betweenOrEq(param, query, fieldObj);
+                        const param: Param = params.getInt(`${alias}.${field}`);
+
+                        if (param) {
+                            query = MongoQueries.betweenOrEq(param, query, fieldObj);
+                        }
 
                         break;
                     }
                     case 'float': {
-                        param = params.getFloat(`${alias}.${field}`);
-                        query = MongoQueries.betweenOrEq(param, query, fieldObj);
+                        const param: Param = params.getFloat(`${alias}.${field}`);
+
+                        if (param) {
+                            query = MongoQueries.betweenOrEq(param, query, fieldObj);
+                        }
 
                         break;
                     }
                     case 'date': {
-                        param = params.getDate(`${alias}.${field}`);
-                        query = MongoQueries.betweenOrEq(param, query, fieldObj);
+                        const param: Param = params.getDate(`${alias}.${field}`);
+
+                        if (param) {
+                            query = MongoQueries.betweenOrEq(param, query, fieldObj);
+                        }
 
                         break;
                     }
                     case 'datetime': {
-                        param = params.getDateTime(`${alias}.${field}`);
-                        query = MongoQueries.betweenOrEq(param, query, fieldObj);
+                        const param: Param = params.getDateTime(`${alias}.${field}`);
+
+                        if (param) {
+                            query = MongoQueries.betweenOrEq(param, query, fieldObj);
+                        }
 
                         break;
                     }
                     case 'boolean': {
-                        param = params.getBoolean(`${alias}.${field}`);
-                        query = MongoQueries.trueOrNull(param, query, fieldObj);
+                        const param: Param = params.getBoolean(`${alias}.${field}`);
+
+                        if (param) {
+                            query = MongoQueries.trueOrNull(param, query, fieldObj);
+                        }
 
                         break;
                     }
