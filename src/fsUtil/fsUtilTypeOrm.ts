@@ -92,13 +92,15 @@ class FSUtilTypeOrm extends FSUtil {
                 let key: string = sortValues[0];
                 const field: string = service ? service.translateParams(key) : key;
 
-                const keyRegex: RegExp = new RegExp(`^${alias}\\.`, 'ig');
-                key = key.replace(keyRegex, '');
+                if (field) {
+                    const keyRegex: RegExp = new RegExp(`^${alias}\\.`, 'ig');
+                    key = key.replace(keyRegex, '');
 
-                if (this.getAcceptedFields(fields).indexOf(key) !== -1) {
-                    sort[field] = sortValues.length === sortValueLength
-                        ? (sortValues[1] === 'desc' || sortValues[1] === 'DESC' ? 'DESC' : 'ASC')
-                        : 'ASC';
+                    if (this.getAcceptedFields(fields).indexOf(key) !== -1) {
+                        sort[field] = sortValues.length === sortValueLength
+                            ? (sortValues[1] === 'desc' || sortValues[1] === 'DESC' ? 'DESC' : 'ASC')
+                            : 'ASC';
+                    }
                 }
             }
         }

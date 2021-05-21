@@ -76,12 +76,14 @@ class FSUtilTypeOrm extends fsUtil_1.default {
                 const sortValueLength = 2;
                 let key = sortValues[0];
                 const field = service ? service.translateParams(key) : key;
-                const keyRegex = new RegExp(`^${alias}\\.`, 'ig');
-                key = key.replace(keyRegex, '');
-                if (this.getAcceptedFields(fields).indexOf(key) !== -1) {
-                    sort[field] = sortValues.length === sortValueLength
-                        ? (sortValues[1] === 'desc' || sortValues[1] === 'DESC' ? 'DESC' : 'ASC')
-                        : 'ASC';
+                if (field) {
+                    const keyRegex = new RegExp(`^${alias}\\.`, 'ig');
+                    key = key.replace(keyRegex, '');
+                    if (this.getAcceptedFields(fields).indexOf(key) !== -1) {
+                        sort[field] = sortValues.length === sortValueLength
+                            ? (sortValues[1] === 'desc' || sortValues[1] === 'DESC' ? 'DESC' : 'ASC')
+                            : 'ASC';
+                    }
                 }
             }
         }
