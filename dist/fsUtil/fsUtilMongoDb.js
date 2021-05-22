@@ -27,7 +27,7 @@ class FSUtilMongoDb extends fsUtil_1.default {
             }
             else {
                 switch (fieldObj.type) {
-                    case 'objectid': {
+                    case 'objectId': {
                         let param = params.getString(`${alias}.${field}`);
                         param = param.value ? param : params.getString(`${alias}.${field.replace(/_/ig, '')}`);
                         if (param) {
