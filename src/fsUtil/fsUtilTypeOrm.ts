@@ -103,7 +103,7 @@ class FSUtilTypeOrm extends FSUtil {
         }
     }
 
-    public static parseSorting(alias: string, fields: any, sortParam: string, service?: DefaultService<any>): any {
+    public static parseSorting(alias: string, fields: any, sortParam: string, service?: DefaultService<any> | DefaultService2<any>): any {
         const sort: any = {};
 
         if (sortParam) {

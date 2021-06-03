@@ -5,6 +5,6 @@ import { SelectQueryBuilder } from 'typeorm';
 import FSUtil from './fsUtil';
 declare class FSUtilTypeOrm extends FSUtil {
     static parseFilter(app: App, alias: string, from: any, fields: any, service: DefaultService<any> | DefaultService2<any>, qb: SelectQueryBuilder<any>): void;
-    static parseSorting(alias: string, fields: any, sortParam: string, service?: DefaultService<any>): any;
+    static parseSorting(alias: string, fields: any, sortParam: string, service?: DefaultService<any> | DefaultService2<any>): any;
 }
 export default FSUtilTypeOrm;
