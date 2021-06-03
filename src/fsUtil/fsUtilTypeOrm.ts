@@ -2,13 +2,14 @@ import App from '@dfgpublicidade/node-app-module';
 import Params, { Param } from '@dfgpublicidade/node-params-module';
 import Security from '@dfgpublicidade/node-security-module';
 import { DefaultService } from '@dfgpublicidade/node-typeorm-module';
+import { DefaultService as DefaultService2 } from '@dfgpublicidade/node-typeorm-module-2';
 import { SelectQueryBuilder } from 'typeorm';
 import TypeOrmQueries from '../queries/typeOrmQueries';
 import FSUtil from './fsUtil';
 
 /* Module */
 class FSUtilTypeOrm extends FSUtil {
-    public static parseFilter(app: App, alias: string, from: any, fields: any, service: DefaultService<any>, qb: SelectQueryBuilder<any>): void {
+    public static parseFilter(app: App, alias: string, from: any, fields: any, service: DefaultService<any> | DefaultService2<any>, qb: SelectQueryBuilder<any>): void {
         if (!app || !alias || !from || !fields || !service || !qb) {
             return;
         }

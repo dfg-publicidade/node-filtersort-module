@@ -16,7 +16,8 @@
         "@dfgpublicidade/node-params-module": "git+ssh://git@github.com/dfg-publicidade/node-params-module.git",
         "@dfgpublicidade/node-security-module": "git+ssh://git@github.com/dfg-publicidade/node-security-module.git",
         "@dfgpublicidade/node-strings-module": "git+ssh://git@github.com/dfg-publicidade/node-strings-module.git",
-        "@dfgpublicidade/node-typeorm-module": "git+ssh://git@github.com/dfg-publicidade/node-typeorm-module.git"
+        "@dfgpublicidade/node-typeorm-module": "git+ssh://git@github.com/dfg-publicidade/node-typeorm-module.git",
+        "@dfgpublicidade/node-typeorm-module-2": "git+ssh://git@github.com/dfg-publicidade/node-typeorm-module-2.git"
     },
     "devDependencies": {
         "@dfgpublicidade/eslint-config": "git+ssh://git@github.com/dfg-publicidade/eslint-config.git",
