@@ -22,45 +22,61 @@ class FSUtilTypeOrm extends fsUtil_1.default {
                 switch (fields[field]) {
                     case 'id': {
                         const param = params.getString(`${alias}.${field}`);
-                        typeOrmQueries_1.default.inOrEq(param, qb, {
-                            parse: (value) => node_security_module_1.default.decodeId(app.config.security, value),
-                            filter: (value) => node_security_module_1.default.isId(app.config.security, value)
-                        });
+                        if (param) {
+                            typeOrmQueries_1.default.inOrEq(param, qb, {
+                                parse: (value) => node_security_module_1.default.decodeId(app.config.security, value),
+                                filter: (value) => node_security_module_1.default.isId(app.config.security, value)
+                            });
+                        }
                         break;
                     }
                     case 'permalink': {
                         const param = params.getString(`${alias}.${field}`);
-                        typeOrmQueries_1.default.inOrEq(param, qb);
+                        if (param) {
+                            typeOrmQueries_1.default.inOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'string': {
                         const param = params.getString(`${alias}.${field}`);
-                        typeOrmQueries_1.default.like(param, qb);
+                        if (param) {
+                            typeOrmQueries_1.default.like(param, qb);
+                        }
                         break;
                     }
                     case 'integer': {
                         const param = params.getInt(`${alias}.${field}`);
-                        typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        if (param) {
+                            typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'float': {
                         const param = params.getFloat(`${alias}.${field}`);
-                        typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        if (param) {
+                            typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'date': {
                         const param = params.getDate(`${alias}.${field}`);
-                        typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        if (param) {
+                            typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'datetime': {
                         const param = params.getDateTime(`${alias}.${field}`);
-                        typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        if (param) {
+                            typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
                         break;
                     }
                     case 'boolean': {
                         const param = params.getBoolean(`${alias}.${field}`);
-                        typeOrmQueries_1.default.trueOrNull(param, qb);
+                        if (param) {
+                            typeOrmQueries_1.default.trueOrNull(param, qb);
+                        }
                         break;
                     }
                 }

@@ -176,6 +176,20 @@ class TestService3 extends DefaultService<Test3> {
     }
 }
 
+class InvalidService extends DefaultService<Test> {
+    private constructor(connectionName: string) {
+        super(Test, connectionName);
+    }
+
+    public static getInstance(connectionName: string): InvalidService {
+        return new InvalidService(connectionName);
+    }
+
+    public translateParams(param: string, alias?: string): string {
+        return undefined;
+    }
+}
+
 describe('fsUtilTypeOrm', (): void => {
     const connectionName: string = 'mysql';
     let connection: Connection;
@@ -202,6 +216,7 @@ describe('fsUtilTypeOrm', (): void => {
 
     let testService: TestService;
     let testService3: TestService3;
+    let invalidService: InvalidService;
 
     before(async (): Promise<void> => {
         if (!process.env.MYSQL_TEST_HOST) {
@@ -294,6 +309,7 @@ describe('fsUtilTypeOrm', (): void => {
 
         testService = TestService.getInstance(connectionName);
         testService3 = TestService3.getInstance(connectionName);
+        invalidService = InvalidService.getInstance(connectionName);
     });
 
     after(async (): Promise<void> => {
@@ -1833,6 +1849,48 @@ describe('fsUtilTypeOrm', (): void => {
 
         // eslint-disable-next-line no-magic-numbers
         expect(await qb.getCount()).to.be.eq(7);
+    });
+
+    it('41. parseFilter', async (): Promise<void> => {
+        const test: string = 'test';
+
+        const qb: SelectQueryBuilder<Test> = invalidService.getRepository().createQueryBuilder(test);
+
+        invalidService.setJoins(test, qb);
+
+        FSUtilTypeOrm.parseFilter(app, test, {
+            'test.id': 'null'
+        }, {
+            id: 'id',
+            permalink: 'permalink',
+            name: 'string',
+            qtty: 'integer',
+            value: 'float',
+            init: 'date',
+            created_at: 'datetime',
+            active: 'boolean'
+        }, testService, qb);
+
+        expect(qb.getSql().replace(/\s+/ig, ' ')).to.be.eq(`
+            SELECT 
+            '${test}'.'id'          AS '${test}_id',
+            '${test}'.'name'        AS '${test}_name',
+            '${test}'.'_id'         AS '${test}__id',
+            '${test}'.'permalink'   AS '${test}_permalink',
+            '${test}'.'qtty'        AS '${test}_qtty',
+            '${test}'.'value'       AS '${test}_value',
+            '${test}'.'init'        AS '${test}_init',
+            '${test}'.'created_at'  AS '${test}_created_at',
+            '${test}'.'active'      AS '${test}_active'
+
+            FROM 'Test' '${test}'
+            
+            WHERE '${test}'.'id' IS NULL
+        `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
+
+        expect(qb.getParameters()).to.be.deep.eq({});
+
+        expect(await qb.getCount()).to.be.eq(0);
     });
 
     it('41. parseSorting', async (): Promise<void> => {
