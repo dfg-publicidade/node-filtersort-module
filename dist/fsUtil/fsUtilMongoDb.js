@@ -30,73 +30,55 @@ class FSUtilMongoDb extends fsUtil_1.default {
                     case 'objectId': {
                         let param = params.getString(`${alias}.${field}`);
                         param = param.value ? param : params.getString(`${alias}.${field.replace(/_/ig, '')}`);
-                        if (param) {
-                            query = mongoQueries_1.default.inOrEq(param, query, fieldObj, {
-                                filter: bson_1.ObjectId.isValid,
-                                parse: (value) => new bson_1.ObjectId(value)
-                            });
-                        }
+                        query = mongoQueries_1.default.inOrEq(param, query, fieldObj, {
+                            filter: bson_1.ObjectId.isValid,
+                            parse: (value) => new bson_1.ObjectId(value)
+                        });
                         break;
                     }
                     case 'id': {
                         const param = params.getString(`${alias}.${field}`);
-                        if (param) {
-                            query = mongoQueries_1.default.inOrEq(param, query, fieldObj, {
-                                filter: (value) => node_security_module_1.default.isId(app.config.security, value),
-                                parse: (value) => node_security_module_1.default.decodeId(app.config.security, value)
-                            });
-                        }
+                        query = mongoQueries_1.default.inOrEq(param, query, fieldObj, {
+                            filter: (value) => node_security_module_1.default.isId(app.config.security, value),
+                            parse: (value) => node_security_module_1.default.decodeId(app.config.security, value)
+                        });
                         break;
                     }
                     case 'permalink': {
                         const param = params.getString(`${alias}.${field}`);
-                        if (param) {
-                            query = mongoQueries_1.default.inOrEq(param, query, fieldObj);
-                        }
+                        query = mongoQueries_1.default.inOrEq(param, query, fieldObj);
                         break;
                     }
                     case 'string': {
                         const param = params.getString(`${alias}.${field}`);
-                        if (param) {
-                            query = mongoQueries_1.default.eqOrNull(param, query, fieldObj, {
-                                parse: (value) => ({ $regex: node_strings_module_1.default.createFindRegex(value) })
-                            });
-                        }
+                        query = mongoQueries_1.default.eqOrNull(param, query, fieldObj, {
+                            parse: (value) => ({ $regex: node_strings_module_1.default.createFindRegex(value) })
+                        });
                         break;
                     }
                     case 'integer': {
                         const param = params.getInt(`${alias}.${field}`);
-                        if (param) {
-                            query = mongoQueries_1.default.betweenOrEq(param, query, fieldObj);
-                        }
+                        query = mongoQueries_1.default.betweenOrEq(param, query, fieldObj);
                         break;
                     }
                     case 'float': {
                         const param = params.getFloat(`${alias}.${field}`);
-                        if (param) {
-                            query = mongoQueries_1.default.betweenOrEq(param, query, fieldObj);
-                        }
+                        query = mongoQueries_1.default.betweenOrEq(param, query, fieldObj);
                         break;
                     }
                     case 'date': {
                         const param = params.getDate(`${alias}.${field}`);
-                        if (param) {
-                            query = mongoQueries_1.default.betweenOrEq(param, query, fieldObj);
-                        }
+                        query = mongoQueries_1.default.betweenOrEq(param, query, fieldObj);
                         break;
                     }
                     case 'datetime': {
                         const param = params.getDateTime(`${alias}.${field}`);
-                        if (param) {
-                            query = mongoQueries_1.default.betweenOrEq(param, query, fieldObj);
-                        }
+                        query = mongoQueries_1.default.betweenOrEq(param, query, fieldObj);
                         break;
                     }
                     case 'boolean': {
                         const param = params.getBoolean(`${alias}.${field}`);
-                        if (param) {
-                            query = mongoQueries_1.default.trueOrNull(param, query, fieldObj);
-                        }
+                        query = mongoQueries_1.default.trueOrNull(param, query, fieldObj);
                         break;
                     }
                 }

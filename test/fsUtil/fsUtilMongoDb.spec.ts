@@ -48,7 +48,7 @@ class TestService extends DefaultService {
         return this.count(db, query);
     }
 
-    public static async buscarPorId(db: Db, id: string): Promise<Test> {
+    public static async buscarPorId(db: Db, id: ObjectId): Promise<Test> {
         return this.findById(db, id);
     }
 
@@ -190,7 +190,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test._id': test._id.toHexString()
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -214,7 +214,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.id': test._id.toHexString()
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -240,7 +240,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.id': `${test._id.toHexString()},${objectId.toHexString()}`
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -266,7 +266,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.id': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -293,7 +293,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.code': code
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -320,7 +320,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.code': `${code},${code2}`
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -346,7 +346,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.code': '123'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -368,7 +368,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.code': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -393,7 +393,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.permalink': '0001'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -417,7 +417,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.permalink': '0001,0002'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -443,7 +443,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.permalink': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -468,7 +468,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.name': 'te'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -494,7 +494,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.name': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -519,7 +519,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.qtty': '1'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -543,7 +543,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.qtty': '1;3'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -570,7 +570,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.qtty': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -595,7 +595,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.value': '10.5'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -619,7 +619,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.value': '10.5;30.5'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -646,7 +646,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.value': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -671,7 +671,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.init': '01/01/2021'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -695,7 +695,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.init': '01/01/2021;31/12/2021'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -722,7 +722,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.init': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -747,7 +747,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.created_at': '01/01/2021 10:00'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -771,7 +771,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.created_at': '01/01/2021 10:00;01/01/2021 11:00'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -798,7 +798,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.created_at': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -823,7 +823,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.active': 'true'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -847,7 +847,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.active': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -872,7 +872,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.active': 'false'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -901,7 +901,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.text': 'te'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -927,7 +927,7 @@ describe('fsUtilMongoDb', (): void => {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'test.text': 'null'
         }, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -951,7 +951,7 @@ describe('fsUtilMongoDb', (): void => {
         const test: string = 'test';
 
         const sort: any = FSUtilMongoDb.parseSorting(test, {
-            _id: 'objectid',
+            _id: 'objectId',
             code: 'id',
             permalink: 'permalink',
             name: 'string',
