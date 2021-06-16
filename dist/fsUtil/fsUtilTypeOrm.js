@@ -5,9 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_params_module_1 = __importDefault(require("@dfgpublicidade/node-params-module"));
 const node_security_module_1 = __importDefault(require("@dfgpublicidade/node-security-module"));
+const debug_1 = __importDefault(require("debug"));
 const typeOrmQueries_1 = __importDefault(require("../queries/typeOrmQueries"));
 const fsUtil_1 = __importDefault(require("./fsUtil"));
 /* Module */
+const debug = debug_1.default('module:fsutil-typeorm');
 class FSUtilTypeOrm extends fsUtil_1.default {
     static parseFilter(app, alias, from, fields, service, qb) {
         if (!app || !alias || !from || !fields || !service || !qb) {
@@ -28,12 +30,18 @@ class FSUtilTypeOrm extends fsUtil_1.default {
                                 filter: (value) => node_security_module_1.default.isId(app.config.security, value)
                             });
                         }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
                         break;
                     }
                     case 'permalink': {
                         const param = params.getString(`${alias}.${field}`);
                         if (param) {
                             typeOrmQueries_1.default.inOrEq(param, qb);
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
                         }
                         break;
                     }
@@ -42,12 +50,18 @@ class FSUtilTypeOrm extends fsUtil_1.default {
                         if (param) {
                             typeOrmQueries_1.default.like(param, qb);
                         }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
                         break;
                     }
                     case 'integer': {
                         const param = params.getInt(`${alias}.${field}`);
                         if (param) {
                             typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
                         }
                         break;
                     }
@@ -56,12 +70,18 @@ class FSUtilTypeOrm extends fsUtil_1.default {
                         if (param) {
                             typeOrmQueries_1.default.betweenOrEq(param, qb);
                         }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
                         break;
                     }
                     case 'date': {
                         const param = params.getDate(`${alias}.${field}`);
                         if (param) {
                             typeOrmQueries_1.default.betweenOrEq(param, qb);
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
                         }
                         break;
                     }
@@ -70,12 +90,18 @@ class FSUtilTypeOrm extends fsUtil_1.default {
                         if (param) {
                             typeOrmQueries_1.default.betweenOrEq(param, qb);
                         }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
                         break;
                     }
                     case 'boolean': {
                         const param = params.getBoolean(`${alias}.${field}`);
                         if (param) {
                             typeOrmQueries_1.default.trueOrNull(param, qb);
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
                         }
                         break;
                     }

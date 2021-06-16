@@ -1858,9 +1858,7 @@ describe('fsUtilTypeOrm', (): void => {
 
         invalidService.setJoins(test, qb);
 
-        FSUtilTypeOrm.parseFilter(app, test, {
-            'test.id': 'null'
-        }, {
+        FSUtilTypeOrm.parseFilter(app, test, {}, {
             id: 'id',
             permalink: 'permalink',
             name: 'string',
@@ -1869,7 +1867,7 @@ describe('fsUtilTypeOrm', (): void => {
             init: 'date',
             created_at: 'datetime',
             active: 'boolean'
-        }, testService, qb);
+        }, invalidService, qb);
 
         expect(qb.getSql().replace(/\s+/ig, ' ')).to.be.eq(`
             SELECT 
@@ -1884,16 +1882,15 @@ describe('fsUtilTypeOrm', (): void => {
             '${test}'.'active'      AS '${test}_active'
 
             FROM 'Test' '${test}'
-            
-            WHERE '${test}'.'id' IS NULL
         `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         expect(qb.getParameters()).to.be.deep.eq({});
 
-        expect(await qb.getCount()).to.be.eq(0);
+        // eslint-disable-next-line no-magic-numbers
+        expect(await qb.getCount()).to.be.eq(8);
     });
 
-    it('41. parseSorting', async (): Promise<void> => {
+    it('42. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1910,7 +1907,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(sort).to.be.deep.eq({});
     });
 
-    it('42. parseSorting', async (): Promise<void> => {
+    it('43. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1929,7 +1926,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('43. parseSorting', async (): Promise<void> => {
+    it('44. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1946,7 +1943,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(sort).to.be.deep.eq({});
     });
 
-    it('44. parseSorting', async (): Promise<void> => {
+    it('45. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1965,7 +1962,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('45. parseSorting', async (): Promise<void> => {
+    it('46. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1984,7 +1981,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('46. parseSorting', async (): Promise<void> => {
+    it('47. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2003,7 +2000,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('47. parseSorting', async (): Promise<void> => {
+    it('48. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2022,7 +2019,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('48. parseSorting', async (): Promise<void> => {
+    it('49. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2039,7 +2036,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(sort).to.be.deep.eq({});
     });
 
-    it('49. parseSorting', async (): Promise<void> => {
+    it('50. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2060,7 +2057,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('50. parseSorting', async (): Promise<void> => {
+    it('51. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2081,7 +2078,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('51. parseSorting', async (): Promise<void> => {
+    it('52. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2102,5 +2099,26 @@ describe('fsUtilTypeOrm', (): void => {
         expect(sort).to.be.deep.eq({
             'testTest2Test3.id': 'ASC'
         });
+    });
+
+    it('52. parseSorting', async (): Promise<void> => {
+        const test: string = 'test';
+
+        const sort: any = FSUtilTypeOrm.parseSorting(test, {
+            tests: {
+                tests: {
+                    id: 'id',
+                    permalink: 'permalink',
+                    name: 'string',
+                    qtty: 'integer',
+                    value: 'float',
+                    init: 'date',
+                    created_at: 'datetime',
+                    active: 'boolean'
+                }
+            }
+        }, 'test.tests.tests.id:ASC', invalidService);
+
+        expect(sort).to.be.deep.eq({});
     });
 });

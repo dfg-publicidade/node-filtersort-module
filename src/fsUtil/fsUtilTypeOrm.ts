@@ -3,11 +3,14 @@ import Params, { Param } from '@dfgpublicidade/node-params-module';
 import Security from '@dfgpublicidade/node-security-module';
 import { DefaultService } from '@dfgpublicidade/node-typeorm-module';
 import { DefaultService as DefaultService2 } from '@dfgpublicidade/node-typeorm-module-2';
+import appDebugger from 'debug';
 import { SelectQueryBuilder } from 'typeorm';
 import TypeOrmQueries from '../queries/typeOrmQueries';
 import FSUtil from './fsUtil';
 
 /* Module */
+const debug: appDebugger.IDebugger = appDebugger('module:fsutil-typeorm');
+
 class FSUtilTypeOrm extends FSUtil {
     public static parseFilter(app: App, alias: string, from: any, fields: any, service: DefaultService<any> | DefaultService2<any>, qb: SelectQueryBuilder<any>): void {
         if (!app || !alias || !from || !fields || !service || !qb) {
@@ -31,6 +34,9 @@ class FSUtilTypeOrm extends FSUtil {
                                 filter: (value: any): any => Security.isId(app.config.security, value)
                             });
                         }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
 
                         break;
                     }
@@ -39,6 +45,9 @@ class FSUtilTypeOrm extends FSUtil {
 
                         if (param) {
                             TypeOrmQueries.inOrEq(param, qb);
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
                         }
 
                         break;
@@ -49,6 +58,9 @@ class FSUtilTypeOrm extends FSUtil {
                         if (param) {
                             TypeOrmQueries.like(param, qb);
                         }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
 
                         break;
                     }
@@ -57,6 +69,9 @@ class FSUtilTypeOrm extends FSUtil {
 
                         if (param) {
                             TypeOrmQueries.betweenOrEq(param, qb);
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
                         }
 
                         break;
@@ -67,6 +82,9 @@ class FSUtilTypeOrm extends FSUtil {
                         if (param) {
                             TypeOrmQueries.betweenOrEq(param, qb);
                         }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
 
                         break;
                     }
@@ -75,6 +93,9 @@ class FSUtilTypeOrm extends FSUtil {
 
                         if (param) {
                             TypeOrmQueries.betweenOrEq(param, qb);
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
                         }
 
                         break;
@@ -85,6 +106,9 @@ class FSUtilTypeOrm extends FSUtil {
                         if (param) {
                             TypeOrmQueries.betweenOrEq(param, qb);
                         }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
 
                         break;
                     }
@@ -93,6 +117,9 @@ class FSUtilTypeOrm extends FSUtil {
 
                         if (param) {
                             TypeOrmQueries.trueOrNull(param, qb);
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
                         }
 
                         break;
