@@ -2,7 +2,7 @@ import App from '@dfgpublicidade/node-app-module';
 import Params, { Param } from '@dfgpublicidade/node-params-module';
 import Security from '@dfgpublicidade/node-security-module';
 import Strings from '@dfgpublicidade/node-strings-module';
-import { ObjectId } from 'bson';
+import { ObjectId } from 'mongodb';
 import MongoQueries, { FSField } from '../queries/mongoQueries';
 import FSUtil from './fsUtil';
 

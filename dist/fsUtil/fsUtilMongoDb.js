@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const node_params_module_1 = __importDefault(require("@dfgpublicidade/node-params-module"));
 const node_security_module_1 = __importDefault(require("@dfgpublicidade/node-security-module"));
 const node_strings_module_1 = __importDefault(require("@dfgpublicidade/node-strings-module"));
-const bson_1 = require("bson");
+const mongodb_1 = require("mongodb");
 const mongoQueries_1 = __importDefault(require("../queries/mongoQueries"));
 const fsUtil_1 = __importDefault(require("./fsUtil"));
 /* Module */
@@ -31,8 +31,8 @@ class FSUtilMongoDb extends fsUtil_1.default {
                         let param = params.getString(`${alias}.${field}`);
                         param = param.value ? param : params.getString(`${alias}.${field.replace(/_/ig, '')}`);
                         query = mongoQueries_1.default.inOrEq(param, query, fieldObj, {
-                            filter: bson_1.ObjectId.isValid,
-                            parse: (value) => new bson_1.ObjectId(value)
+                            filter: mongodb_1.ObjectId.isValid,
+                            parse: (value) => new mongodb_1.ObjectId(value)
                         });
                         break;
                     }
