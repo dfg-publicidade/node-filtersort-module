@@ -45,8 +45,6 @@ class FSUtilTypeOrm extends FSUtil {
                         let param: Param = params.getString(`${alias}.${field}`);
                         param = param.value ? param : params.getString(`${alias}.${field.replace(/_/ig, '')}`);
 
-                        param.name = '_id';
-
                         if (param) {
                             TypeOrmQueries.inOrEq(param, qb, {
                                 filter: ObjectId.isValid
