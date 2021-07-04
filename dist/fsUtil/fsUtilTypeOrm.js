@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const node_params_module_1 = __importDefault(require("@dfgpublicidade/node-params-module"));
 const node_security_module_1 = __importDefault(require("@dfgpublicidade/node-security-module"));
 const debug_1 = __importDefault(require("debug"));
+const mongodb_1 = require("mongodb");
 const typeOrmQueries_1 = __importDefault(require("../queries/typeOrmQueries"));
 const fsUtil_1 = __importDefault(require("./fsUtil"));
 /* Module */
@@ -28,6 +29,19 @@ class FSUtilTypeOrm extends fsUtil_1.default {
                             typeOrmQueries_1.default.inOrEq(param, qb, {
                                 parse: (value) => node_security_module_1.default.decodeId(app.config.security, value),
                                 filter: (value) => node_security_module_1.default.isId(app.config.security, value)
+                            });
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
+                        break;
+                    }
+                    case 'objectId': {
+                        let param = params.getString(`${alias}.${field}`);
+                        param = param.value ? param : params.getString(`${alias}.${field.replace(/_/ig, '')}`);
+                        if (param) {
+                            typeOrmQueries_1.default.inOrEq(param, qb, {
+                                filter: mongodb_1.ObjectId.isValid
                             });
                         }
                         else {

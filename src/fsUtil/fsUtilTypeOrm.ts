@@ -4,6 +4,7 @@ import Security from '@dfgpublicidade/node-security-module';
 import { DefaultService } from '@dfgpublicidade/node-typeorm-module';
 import { DefaultService as DefaultService2 } from '@dfgpublicidade/node-typeorm-module-2';
 import appDebugger from 'debug';
+import { ObjectId } from 'mongodb';
 import { SelectQueryBuilder } from 'typeorm';
 import TypeOrmQueries from '../queries/typeOrmQueries';
 import FSUtil from './fsUtil';
@@ -32,6 +33,21 @@ class FSUtilTypeOrm extends FSUtil {
                             TypeOrmQueries.inOrEq(param, qb, {
                                 parse: (value: any): any => Security.decodeId(app.config.security, value),
                                 filter: (value: any): any => Security.isId(app.config.security, value)
+                            });
+                        }
+                        else {
+                            debug(`Param named ${alias}.${field} is undefined.`);
+                        }
+
+                        break;
+                    }
+                    case 'objectId': {
+                        let param: Param = params.getString(`${alias}.${field}`);
+                        param = param.value ? param : params.getString(`${alias}.${field.replace(/_/ig, '')}`);
+
+                        if (param) {
+                            TypeOrmQueries.inOrEq(param, qb, {
+                                filter: ObjectId.isValid
                             });
                         }
                         else {
