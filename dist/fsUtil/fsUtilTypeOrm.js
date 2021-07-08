@@ -38,7 +38,7 @@ class FSUtilTypeOrm extends fsUtil_1.default {
                     }
                     case 'objectId': {
                         let param = params.getString(`${alias}.${field}`);
-                        param = param.value ? param : params.getString(`${alias}.${field.replace(/_/ig, '')}`);
+                        param = (param === null || param === void 0 ? void 0 : param.value) ? param : params.getString(`${alias}.${field.replace(/_/ig, '')}`);
                         if (param) {
                             typeOrmQueries_1.default.inOrEq(param, qb, {
                                 filter: mongodb_1.ObjectId.isValid

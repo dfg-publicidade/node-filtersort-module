@@ -663,6 +663,94 @@ describe('fsUtilTypeOrm', (): void => {
         testService.setJoins(test, qb);
 
         FSUtilTypeOrm.parseFilter(app, test, {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            'test._id': 'null'
+        }, {
+            _id: 'objectId',
+            permalink: 'permalink',
+            name: 'string',
+            qtty: 'integer',
+            value: 'float',
+            init: 'date',
+            created_at: 'datetime',
+            active: 'boolean'
+        }, testService, qb);
+
+        expect(qb.getSql().replace(/\s+/ig, ' ')).to.be.eq(`
+            SELECT 
+            '${test}'.'id'          AS '${test}_id',
+            '${test}'.'name'        AS '${test}_name',
+            '${test}'.'_id'         AS '${test}__id',
+            '${test}'.'permalink'   AS '${test}_permalink',
+            '${test}'.'qtty'        AS '${test}_qtty',
+            '${test}'.'value'       AS '${test}_value',
+            '${test}'.'init'        AS '${test}_init',
+            '${test}'.'created_at'  AS '${test}_created_at',
+            '${test}'.'active'      AS '${test}_active'
+
+            FROM 'Test' '${test}'
+            `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
+
+        expect(qb.getParameters()).to.be.deep.eq({});
+
+        // eslint-disable-next-line no-magic-numbers
+        expect(await qb.getCount()).to.be.eq(8);
+    });
+
+    it('15. parseFilter', async (): Promise<void> => {
+        const test: string = 'test';
+
+        const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
+
+        testService.setJoins(test, qb);
+
+        FSUtilTypeOrm.parseFilter(app, test, {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            'test._id': '6095a263d84040d247c3cc2f'
+        }, {
+            _id: 'objectId',
+            permalink: 'permalink',
+            name: 'string',
+            qtty: 'integer',
+            value: 'float',
+            init: 'date',
+            created_at: 'datetime',
+            active: 'boolean'
+        }, testService, qb);
+
+        expect(qb.getSql().replace(/\s+/ig, ' ')).to.be.eq(`
+            SELECT 
+            '${test}'.'id'          AS '${test}_id',
+            '${test}'.'name'        AS '${test}_name',
+            '${test}'.'_id'         AS '${test}__id',
+            '${test}'.'permalink'   AS '${test}_permalink',
+            '${test}'.'qtty'        AS '${test}_qtty',
+            '${test}'.'value'       AS '${test}_value',
+            '${test}'.'init'        AS '${test}_init',
+            '${test}'.'created_at'  AS '${test}_created_at',
+            '${test}'.'active'      AS '${test}_active'
+
+            FROM 'Test' '${test}'
+
+            WHERE '${test}'.'_id' = ?
+            `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
+
+        const params: any = {};
+        params[`${test}._id`] = '6095a263d84040d247c3cc2f';
+
+        expect(qb.getParameters()).to.be.deep.eq(params);
+
+        expect(await qb.getCount()).to.be.eq(1);
+    });
+
+    it('16. parseFilter', async (): Promise<void> => {
+        const test: string = 'test';
+
+        const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
+
+        testService.setJoins(test, qb);
+
+        FSUtilTypeOrm.parseFilter(app, test, {
             'test.permalink': 'null'
         }, {
             id: 'id',
@@ -698,7 +786,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(7);
     });
 
-    it('15. parseFilter', async (): Promise<void> => {
+    it('17. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -743,7 +831,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(1);
     });
 
-    it('16. parseFilter', async (): Promise<void> => {
+    it('18. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -788,7 +876,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(1);
     });
 
-    it('17. parseFilter', async (): Promise<void> => {
+    it('19. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -831,7 +919,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(7);
     });
 
-    it('18. parseFilter', async (): Promise<void> => {
+    it('20. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -876,7 +964,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(1);
     });
 
-    it('19. parseFilter', async (): Promise<void> => {
+    it('21. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -917,7 +1005,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(8);
     });
 
-    it('20. parseFilter', async (): Promise<void> => {
+    it('22. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -953,7 +1041,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
     });
 
-    it('21. parseFilter', async (): Promise<void> => {
+    it('23. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -999,7 +1087,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(1);
     });
 
-    it('22. parseFilter', async (): Promise<void> => {
+    it('24. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1044,7 +1132,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(0);
     });
 
-    it('23. parseFilter', async (): Promise<void> => {
+    it('25. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1089,7 +1177,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(7);
     });
 
-    it('24. parseFilter', async (): Promise<void> => {
+    it('26. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1130,7 +1218,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(8);
     });
 
-    it('25. parseFilter', async (): Promise<void> => {
+    it('27. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1176,7 +1264,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(1);
     });
 
-    it('26. parseFilter', async (): Promise<void> => {
+    it('28. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1221,7 +1309,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(0);
     });
 
-    it('27. parseFilter', async (): Promise<void> => {
+    it('29. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1266,7 +1354,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(7);
     });
 
-    it('28. parseFilter', async (): Promise<void> => {
+    it('30. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1307,7 +1395,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(8);
     });
 
-    it('29. parseFilter', async (): Promise<void> => {
+    it('31. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1353,7 +1441,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(1);
     });
 
-    it('30. parseFilter', async (): Promise<void> => {
+    it('32. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1398,7 +1486,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(1);
     });
 
-    it('31. parseFilter', async (): Promise<void> => {
+    it('33. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1442,7 +1530,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(7);
     });
 
-    it('32. parseFilter', async (): Promise<void> => {
+    it('34. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1484,7 +1572,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(8);
     });
 
-    it('33. parseFilter', async (): Promise<void> => {
+    it('35. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1531,99 +1619,99 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(0);
     });
 
-    it('34. parseFilter', async (): Promise<void> => {
-        const test: string = 'test';
-
-        const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
-
-        testService.setJoins(test, qb);
-
-        FSUtilTypeOrm.parseFilter(app, test, {
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            'test.created_at': '01/01/2021 10:00'
-        }, {
-            id: 'id',
-            permalink: 'permalink',
-            name: 'string',
-            qtty: 'integer',
-            value: 'float',
-            init: 'date',
-            created_at: 'datetime',
-            active: 'boolean'
-        }, testService, qb);
-
-        expect(qb.getSql().replace(/\s+/ig, ' ')).to.be.eq(`
-            SELECT 
-            '${test}'.'id'          AS '${test}_id',
-            '${test}'.'name'        AS '${test}_name',
-            '${test}'.'_id'         AS '${test}__id',
-            '${test}'.'permalink'   AS '${test}_permalink',
-            '${test}'.'qtty'        AS '${test}_qtty',
-            '${test}'.'value'       AS '${test}_value',
-            '${test}'.'init'        AS '${test}_init',
-            '${test}'.'created_at'  AS '${test}_created_at',
-            '${test}'.'active'      AS '${test}_active'
-
-            FROM 'Test' '${test}'
-
-            WHERE '${test}'.'created_at' = ?
-            `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
-
-        const params: any = {};
-        params[`${test}.created_at`] = Dates.toDateTime('01/01/2021 10:00');
-
-        expect(qb.getParameters()).to.be.deep.eq(params);
-
-        expect(await qb.getCount()).to.be.eq(0);
-    });
-
-    it('35. parseFilter', async (): Promise<void> => {
-        const test: string = 'test';
-
-        const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
-
-        testService.setJoins(test, qb);
-
-        FSUtilTypeOrm.parseFilter(app, test, {
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            'test.created_at': '01/01/2021 10:00'
-        }, {
-            id: 'id',
-            permalink: 'permalink',
-            name: 'string',
-            qtty: 'integer',
-            value: 'float',
-            init: 'date',
-            created_at: 'datetime',
-            active: 'boolean'
-        }, testService, qb);
-
-        expect(qb.getSql().replace(/\s+/ig, ' ')).to.be.eq(`
-            SELECT 
-            '${test}'.'id'          AS '${test}_id',
-            '${test}'.'name'        AS '${test}_name',
-            '${test}'.'_id'         AS '${test}__id',
-            '${test}'.'permalink'   AS '${test}_permalink',
-            '${test}'.'qtty'        AS '${test}_qtty',
-            '${test}'.'value'       AS '${test}_value',
-            '${test}'.'init'        AS '${test}_init',
-            '${test}'.'created_at'  AS '${test}_created_at',
-            '${test}'.'active'      AS '${test}_active'
-
-            FROM 'Test' '${test}'
-
-            WHERE '${test}'.'created_at' = ?
-            `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
-
-        const params: any = {};
-        params[`${test}.created_at`] = Dates.toDateTime('01/01/2021 10:00');
-
-        expect(qb.getParameters()).to.be.deep.eq(params);
-
-        expect(await qb.getCount()).to.be.eq(0);
-    });
-
     it('36. parseFilter', async (): Promise<void> => {
+        const test: string = 'test';
+
+        const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
+
+        testService.setJoins(test, qb);
+
+        FSUtilTypeOrm.parseFilter(app, test, {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            'test.created_at': '01/01/2021 10:00'
+        }, {
+            id: 'id',
+            permalink: 'permalink',
+            name: 'string',
+            qtty: 'integer',
+            value: 'float',
+            init: 'date',
+            created_at: 'datetime',
+            active: 'boolean'
+        }, testService, qb);
+
+        expect(qb.getSql().replace(/\s+/ig, ' ')).to.be.eq(`
+            SELECT 
+            '${test}'.'id'          AS '${test}_id',
+            '${test}'.'name'        AS '${test}_name',
+            '${test}'.'_id'         AS '${test}__id',
+            '${test}'.'permalink'   AS '${test}_permalink',
+            '${test}'.'qtty'        AS '${test}_qtty',
+            '${test}'.'value'       AS '${test}_value',
+            '${test}'.'init'        AS '${test}_init',
+            '${test}'.'created_at'  AS '${test}_created_at',
+            '${test}'.'active'      AS '${test}_active'
+
+            FROM 'Test' '${test}'
+
+            WHERE '${test}'.'created_at' = ?
+            `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
+
+        const params: any = {};
+        params[`${test}.created_at`] = Dates.toDateTime('01/01/2021 10:00');
+
+        expect(qb.getParameters()).to.be.deep.eq(params);
+
+        expect(await qb.getCount()).to.be.eq(0);
+    });
+
+    it('37. parseFilter', async (): Promise<void> => {
+        const test: string = 'test';
+
+        const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
+
+        testService.setJoins(test, qb);
+
+        FSUtilTypeOrm.parseFilter(app, test, {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            'test.created_at': '01/01/2021 10:00'
+        }, {
+            id: 'id',
+            permalink: 'permalink',
+            name: 'string',
+            qtty: 'integer',
+            value: 'float',
+            init: 'date',
+            created_at: 'datetime',
+            active: 'boolean'
+        }, testService, qb);
+
+        expect(qb.getSql().replace(/\s+/ig, ' ')).to.be.eq(`
+            SELECT 
+            '${test}'.'id'          AS '${test}_id',
+            '${test}'.'name'        AS '${test}_name',
+            '${test}'.'_id'         AS '${test}__id',
+            '${test}'.'permalink'   AS '${test}_permalink',
+            '${test}'.'qtty'        AS '${test}_qtty',
+            '${test}'.'value'       AS '${test}_value',
+            '${test}'.'init'        AS '${test}_init',
+            '${test}'.'created_at'  AS '${test}_created_at',
+            '${test}'.'active'      AS '${test}_active'
+
+            FROM 'Test' '${test}'
+
+            WHERE '${test}'.'created_at' = ?
+            `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
+
+        const params: any = {};
+        params[`${test}.created_at`] = Dates.toDateTime('01/01/2021 10:00');
+
+        expect(qb.getParameters()).to.be.deep.eq(params);
+
+        expect(await qb.getCount()).to.be.eq(0);
+    });
+
+    it('38. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1669,7 +1757,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(7);
     });
 
-    it('37. parseFilter', async (): Promise<void> => {
+    it('39. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1712,7 +1800,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(8);
     });
 
-    it('38. parseFilter', async (): Promise<void> => {
+    it('40. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1758,7 +1846,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(1);
     });
 
-    it('39. parseFilter', async (): Promise<void> => {
+    it('41. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1804,7 +1892,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(7);
     });
 
-    it('40. parseFilter', async (): Promise<void> => {
+    it('42. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = testService.getRepository().createQueryBuilder(test);
@@ -1851,7 +1939,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(7);
     });
 
-    it('41. parseFilter', async (): Promise<void> => {
+    it('43. parseFilter', async (): Promise<void> => {
         const test: string = 'test';
 
         const qb: SelectQueryBuilder<Test> = invalidService.getRepository().createQueryBuilder(test);
@@ -1890,7 +1978,46 @@ describe('fsUtilTypeOrm', (): void => {
         expect(await qb.getCount()).to.be.eq(8);
     });
 
-    it('42. parseSorting', async (): Promise<void> => {
+    it('44. parseFilter', async (): Promise<void> => {
+        const test: string = 'test';
+
+        const qb: SelectQueryBuilder<Test> = invalidService.getRepository().createQueryBuilder(test);
+
+        invalidService.setJoins(test, qb);
+
+        FSUtilTypeOrm.parseFilter(app, test, {}, {
+            _id: 'objectId',
+            permalink: 'permalink',
+            name: 'string',
+            qtty: 'integer',
+            value: 'float',
+            init: 'date',
+            created_at: 'datetime',
+            active: 'boolean'
+        }, invalidService, qb);
+
+        expect(qb.getSql().replace(/\s+/ig, ' ')).to.be.eq(`
+            SELECT 
+            '${test}'.'id'          AS '${test}_id',
+            '${test}'.'name'        AS '${test}_name',
+            '${test}'.'_id'         AS '${test}__id',
+            '${test}'.'permalink'   AS '${test}_permalink',
+            '${test}'.'qtty'        AS '${test}_qtty',
+            '${test}'.'value'       AS '${test}_value',
+            '${test}'.'init'        AS '${test}_init',
+            '${test}'.'created_at'  AS '${test}_created_at',
+            '${test}'.'active'      AS '${test}_active'
+
+            FROM 'Test' '${test}'
+        `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
+
+        expect(qb.getParameters()).to.be.deep.eq({});
+
+        // eslint-disable-next-line no-magic-numbers
+        expect(await qb.getCount()).to.be.eq(8);
+    });
+
+    it('45. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1907,7 +2034,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(sort).to.be.deep.eq({});
     });
 
-    it('43. parseSorting', async (): Promise<void> => {
+    it('46. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1926,7 +2053,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('44. parseSorting', async (): Promise<void> => {
+    it('47. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1943,7 +2070,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(sort).to.be.deep.eq({});
     });
 
-    it('45. parseSorting', async (): Promise<void> => {
+    it('48. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1962,7 +2089,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('46. parseSorting', async (): Promise<void> => {
+    it('49. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -1981,7 +2108,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('47. parseSorting', async (): Promise<void> => {
+    it('50. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2000,7 +2127,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('48. parseSorting', async (): Promise<void> => {
+    it('51. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2019,7 +2146,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('49. parseSorting', async (): Promise<void> => {
+    it('52. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2036,7 +2163,7 @@ describe('fsUtilTypeOrm', (): void => {
         expect(sort).to.be.deep.eq({});
     });
 
-    it('50. parseSorting', async (): Promise<void> => {
+    it('53. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2057,7 +2184,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('51. parseSorting', async (): Promise<void> => {
+    it('54. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2078,7 +2205,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('52. parseSorting', async (): Promise<void> => {
+    it('55. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
@@ -2101,7 +2228,7 @@ describe('fsUtilTypeOrm', (): void => {
         });
     });
 
-    it('52. parseSorting', async (): Promise<void> => {
+    it('56. parseSorting', async (): Promise<void> => {
         const test: string = 'test';
 
         const sort: any = FSUtilTypeOrm.parseSorting(test, {
