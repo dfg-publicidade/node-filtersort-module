@@ -18,13 +18,13 @@ class TypeOrmQueries {
         else if (param.value) {
             if (param.value.indexOf(',') > -1) {
                 const query: any = {};
-                query[param.name] = param.value.split(',').filter(options.filter).map(options.parse);
+                query[pname] = param.value.split(',').filter(options.filter).map(options.parse);
 
                 qb.andWhere(`${param.name} IN (:${pname})`, query);
             }
             else if (options.filter(param.value)) {
                 const query: any = {};
-                query[param.name] = options.parse(param.value);
+                query[pname] = options.parse(param.value);
 
                 qb.andWhere(`${param.name} = :${pname}`, query);
             }
@@ -44,7 +44,7 @@ class TypeOrmQueries {
         }
         else if (param.value) {
             const query: any = {};
-            query[param.name] = `%${options.parse(param.value)}%`;
+            query[pname] = `%${options.parse(param.value)}%`;
 
             qb.andWhere(`${param.name} LIKE :${pname} COLLATE utf8_general_ci`, query);
         }
@@ -64,14 +64,14 @@ class TypeOrmQueries {
         else if (param.value) {
             if (Array.isArray(param.value)) {
                 const query: any = {};
-                query[`${param.name}0`] = options.parse(param.value[0]);
-                query[`${param.name}1`] = options.parse(param.value[1]);
+                query[`${pname}0`] = options.parse(param.value[0]);
+                query[`${pname}1`] = options.parse(param.value[1]);
 
                 qb.andWhere(`${param.name} BETWEEN :${pname}0 AND :${pname}1`, query);
             }
             else {
                 const query: any = {};
-                query[param.name] = options.parse(param.value);
+                query[pname] = options.parse(param.value);
 
                 qb.andWhere(`${param.name} = :${pname}`, query);
             }
@@ -83,7 +83,7 @@ class TypeOrmQueries {
             const pname: string = param.name.replace(/\./ig, '_');
 
             const query: any = {};
-            query[param.name] = param.value;
+            query[pname] = param.value;
 
             if (param.value === true) {
                 qb.andWhere(`${param.name} = :${pname}`, query);
