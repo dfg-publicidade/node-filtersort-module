@@ -384,7 +384,7 @@ describe('fsUtilTypeOrm', (): void => {
         `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test2}.id`] = 1;
+        params[`${test2}_id`] = 1;
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -436,7 +436,7 @@ describe('fsUtilTypeOrm', (): void => {
         `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.id`] = 1;
+        params[`${test}_id`] = 1;
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -562,7 +562,7 @@ describe('fsUtilTypeOrm', (): void => {
         `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.id`] = [1];
+        params[`${test}_id`] = [1];
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -607,7 +607,7 @@ describe('fsUtilTypeOrm', (): void => {
         `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.id`] = 1;
+        params[`${test}_id`] = 1;
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -736,7 +736,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}._id`] = '6095a263d84040d247c3cc2f';
+        params[`${test}__id`] = '6095a263d84040d247c3cc2f';
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -824,7 +824,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.permalink`] = ['test', 'test2'];
+        params[`${test}_permalink`] = ['test', 'test2'];
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -869,7 +869,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.permalink`] = 'test';
+        params[`${test}_permalink`] = 'test';
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -957,7 +957,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.name`] = '%te%';
+        params[`${test}_name`] = '%te%';
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1079,8 +1079,8 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.qtty0`] = 1;
-        params[`${test}.qtty1`] = 2;
+        params[`${test}_qtty0`] = 1;
+        params[`${test}_qtty1`] = 2;
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1125,7 +1125,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.qtty`] = 1;
+        params[`${test}_qtty`] = 1;
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1256,8 +1256,8 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.value0`] = 1.0;
-        params[`${test}.value1`] = 2.0;
+        params[`${test}_value0`] = 1.0;
+        params[`${test}_value1`] = 2.0;
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1302,7 +1302,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.value`] = 1.0;
+        params[`${test}_value`] = 1.0;
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1433,8 +1433,8 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.init0`] = Dates.toDate('01/01/2021');
-        params[`${test}.init1`] = Dates.toDate('01/01/2022');
+        params[`${test}_init0`] = Dates.toDate('01/01/2021');
+        params[`${test}_init1`] = Dates.toDate('01/01/2022');
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1479,7 +1479,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.init`] = Dates.toDate('01/01/2021');
+        params[`${test}_init`] = Dates.toDate('01/01/2021');
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1611,8 +1611,8 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.created_at0`] = Dates.toDateTime('01/01/2021 10:00');
-        params[`${test}.created_at1`] = Dates.toDateTime('01/01/2021 11:00');
+        params[`${test}_created_at0`] = Dates.toDateTime('01/01/2021 10:00');
+        params[`${test}_created_at1`] = Dates.toDateTime('01/01/2021 11:00');
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1658,7 +1658,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.created_at`] = Dates.toDateTime('01/01/2021 10:00');
+        params[`${test}_created_at`] = Dates.toDateTime('01/01/2021 10:00');
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1704,7 +1704,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.created_at`] = Dates.toDateTime('01/01/2021 10:00');
+        params[`${test}_created_at`] = Dates.toDateTime('01/01/2021 10:00');
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1839,7 +1839,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.active`] = true;
+        params[`${test}_active`] = true;
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
@@ -1931,7 +1931,7 @@ describe('fsUtilTypeOrm', (): void => {
             `.replace(/[\r|\n|\t]/ig, '').replace(/\s+/ig, ' ').replace(/'/ig, '`').trim());
 
         const params: any = {};
-        params[`${test}.active`] = false;
+        params[`${test}_active`] = false;
 
         expect(qb.getParameters()).to.be.deep.eq(params);
 
