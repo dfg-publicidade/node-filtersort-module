@@ -10,7 +10,7 @@ const mongodb_1 = require("mongodb");
 const typeOrmQueries_1 = __importDefault(require("../queries/typeOrmQueries"));
 const fsUtil_1 = __importDefault(require("./fsUtil"));
 /* Module */
-const debug = debug_1.default('module:fsutil-typeorm');
+const debug = (0, debug_1.default)('module:fsutil-typeorm');
 class FSUtilTypeOrm extends fsUtil_1.default {
     static parseFilter(app, alias, from, fields, service, qb) {
         if (!app || !alias || !from || !fields || !service || !qb) {
