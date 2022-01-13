@@ -5,7 +5,7 @@
     "main": "dist/index.js",
     "scripts": {
         "check": "eslint src --ext .ts",
-        "test": "DEBUG=module:* TS_NODE_FILES=true NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=4096\" nyc --reporter=html --reporter=text mocha --exit --timeout=100000",
+        "test": "DEBUG=module:* TS_NODE_FILES=true NODE_ENV=test NODE_OPTIONS=\"--max-old-space-size=4096\" nyc --reporter=html --reporter=text mocha --exit --timeout=100000  --inspect",
         "test:all": "npm run test test/**/*.spec.ts test/**/**/*.spec.ts test/**/**/**/*.spec.ts",
         "compile": "npm run check && gulp install && tsc --project tsconfig.json"
     },
