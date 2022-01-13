@@ -114,7 +114,6 @@ describe('fsUtilMongoDb', (): void => {
         const client: MongoClient = await MongoManager.connect({
             url: process.env.MONGO_TEST_URL,
             options: {
-                poolSize: 20,
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             }
@@ -122,7 +121,7 @@ describe('fsUtilMongoDb', (): void => {
 
         db = client.db();
 
-        test = (await db.collection('test').insertOne(test)).ops[0];
+        await db.collection('test').insertOne(test);
     });
 
     after(async (): Promise<void> => {
@@ -203,7 +202,7 @@ describe('fsUtilMongoDb', (): void => {
         });
 
         expect(query).to.be.deep.eq({
-            _id: test._id
+            _id: new ObjectId(test._id.toHexString())
         });
 
         expect(await TestService.listar(db, query)).to.be.deep.eq([test]);
@@ -227,7 +226,7 @@ describe('fsUtilMongoDb', (): void => {
         });
 
         expect(query).to.be.deep.eq({
-            _id: test._id
+            _id: new ObjectId(test._id.toHexString())
         });
 
         expect(await TestService.listar(db, query)).to.be.deep.eq([test]);
@@ -254,7 +253,7 @@ describe('fsUtilMongoDb', (): void => {
 
         expect(query).to.be.deep.eq({
             _id: {
-                $in: [test._id, objectId]
+                $in: [new ObjectId(test._id.toHexString()), objectId]
             }
         });
 
